@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { UserRole } from '../../shared/enums/user-role.enum';
 import { UserStatus } from '../../shared/enums/user-status.enum';
+import { firstValueFrom } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +16,9 @@ export class AuthService {
   private apiUrl = `${environment.apiUrl}/Auth`;
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
+
+  // public token: string;
+  // public username: string;
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadUserFromLocalStorage();
@@ -48,13 +52,11 @@ export class AuthService {
     );
   }
 
-
-
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['auth/login']);
   }
 
   recoverPassword(email: string): Observable<any> {
@@ -66,12 +68,19 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    this.currentUserSubject.next(null);
     return !!localStorage.getItem('token');
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  getUserName(): string | null  {
+    const user = this.currentUserSubject.value;
+    return user ? user.name : null;
+  }
+
 
   getCurrentUserRole(): UserRole | null {
     const user = this.currentUserSubject.value;

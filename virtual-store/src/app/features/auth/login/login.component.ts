@@ -42,13 +42,14 @@ export class LoginComponent {
         if (response.success && response.data.success) {
           // Redirect based on user role
           const userRole = this.authService.getCurrentUserRole();
-
           if (userRole === UserRole.Customer) {
-            this.router.navigate(['/product/list']);
-          } else if (userRole === UserRole.Admin) {
-            this.router.navigate(['/admin/products']);
-          } else if (userRole === UserRole.Manager) {
-            this.router.navigate(['/manager/users']);
+            this.router.navigate(['/customer/product-list']);
+          }
+          if (userRole === UserRole.Admin) {
+            this.router.navigate(['/admin/product-list']);
+          }
+          if (userRole === UserRole.Manager) {
+            this.router.navigate(['/manager/user-list']);
           }
         } else {
           this.errorMessage = response.data.message || 'Authentication failed';
