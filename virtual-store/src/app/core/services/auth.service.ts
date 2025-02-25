@@ -13,7 +13,6 @@ import { UserStatus } from '../../shared/enums/user-status.enum';
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/Auth`;
-  private userUrl = `${environment.apiUrl}/User`;
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
@@ -49,9 +48,7 @@ export class AuthService {
     );
   }
 
-  register(user: User): Observable<any> {
-    return this.http.post(this.userUrl, user);
-  }
+
 
   logout(): void {
     localStorage.removeItem('token');

@@ -20,8 +20,8 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      email: ['romy.moura23@gmail.com', [Validators.required, Validators.email]],
+      password: ['@A12345678a', [Validators.required]]
     });
   }
 
@@ -44,7 +44,7 @@ export class LoginComponent {
           const userRole = this.authService.getCurrentUserRole();
 
           if (userRole === UserRole.Customer) {
-            this.router.navigate(['/user/list-product']);
+            this.router.navigate(['/product/list']);
           } else if (userRole === UserRole.Admin) {
             this.router.navigate(['/admin/products']);
           } else if (userRole === UserRole.Manager) {

@@ -7,7 +7,8 @@ export interface User {
   password?: string;
   phone: string;
   status: UserStatus;
-  role: UserRole;
+  //role: UserRole;
+  role: number
 }
 
 

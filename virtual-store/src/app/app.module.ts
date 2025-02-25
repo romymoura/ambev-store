@@ -6,13 +6,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor.';
-import { ListProductComponent } from './shared/product/list.product/list.product.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListProductComponent,
   ],
   imports: [
     BrowserModule,
