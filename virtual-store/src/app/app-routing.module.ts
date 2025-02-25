@@ -10,17 +10,22 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () => import('./features/user/user.module').then(m => m.UserModule)
-  },
-  {
-    path: 'product',
-    loadChildren: () => import('./features/product/product.module').then(m => m.ProductModule)
   }
-  /*,
+  ,
   {
     path: 'customer',
-    loadChildren: () => import('./features/customer/customer.module').then(m => m.CustomerModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./features/customer/customer.module').then(m => m.CustomerModule)
+  }
+  ,
+  {
+    path: 'manager',
+    loadChildren: () => import('./features/manager/manager.module').then(m => m.ManagerModule)
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule)
+  }
+  /*
   {
     path: 'admin',
     loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule),
