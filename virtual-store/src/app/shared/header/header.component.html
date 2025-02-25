@@ -1,0 +1,95 @@
+<nav class="toolbar navbar navbar-expand-lg navbar-light bg-light" role="banner">
+  <div class="container-fluid">
+    <img width="40" alt="Angular Logo" src="../assets/images/logo-tsc.png" />
+    <a class="navbar-brand h1 mb-0" routerLink="home">TSC</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!--Menu todos usuario role-->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="!this.authService.isLoggedIn()">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Pagina fake 1</a>
+        </li>
+      </ul>
+      <!--Fim menu todos usuario role-->
+      <!--Menu role customer-->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="this.verifyRole(this.userRoleEnum.Customer)">
+        <li class="nav-item active">
+          <a class="nav-link active" routerLink="/customer/product-list">Product List</a>
+        </li>
+        <a class="nav-link active" href="#">|</a>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/customer/shopping-cart">Shopping cart</a>
+        </li>
+        <a class="nav-link active" href="#">|</a>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/customer/payment-for-purchases">Payment for purchases</a>
+        </li>
+      </ul>
+      <!--Fim menu role customer-->
+      <!--Menu role Manager-->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="this.verifyRole(this.userRoleEnum.Manager)">
+        <li class="nav-item active">
+          <a class="nav-link active" routerLink="/manager/user-list">User List</a>
+        </li>
+        <a class="nav-link active" href="#">|</a>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/manager/payment-for-purchases-clients">Payment for purchases clients</a>
+        </li>
+      </ul>
+      <!--Fim menu role Manager-->
+      <!--Menu role Admin-->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="this.verifyRole(this.userRoleEnum.Admin)">
+        <li class="nav-item active">
+          <a class="nav-link active" routerLink="/admin/product-list">Product List</a>
+        </li>
+        <a class="nav-link active" href="#">|</a>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/admin/new-product">New Product</a>
+        </li>
+      </ul>
+      <!--Fim menu role Admin-->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="!this.authService.isLoggedIn()">
+          <a class="nav-link active" routerLink="/auth/login">Sign-In</a>
+        </li>
+        <li class="nav-item dropdown justify-content-end" *ngIf="this.authService.isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            User loged: {{this.userName}} Role: {{this.userRole}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" (click)="sigOut()">Log-out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--Explo para collapsble do menu
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="this.userRole == this.userRoleEnum.Customer">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+-->
