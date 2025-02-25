@@ -1,0 +1,22 @@
+<nav *ngIf="totalPages > 1">
+  <ul class="pagination justify-content-center">
+    <!-- Botão Anterior -->
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <button class="page-link" (click)="changePage(currentPage - 1)">Anterior</button>
+    </li>
+
+    <!-- Números das páginas -->
+    <li *ngFor="let page of [].constructor(totalPages); let i = index"
+        class="page-item"
+        [class.active]="currentPage === (i + 1)">
+      <button class="page-link" (click)="changePage(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </li>
+
+    <!-- Botão Próximo -->
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <button class="page-link" (click)="changePage(currentPage + 1)">Próximo</button>
+    </li>
+  </ul>
+</nav>
