@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductItemsComponent } from './product/product-items/product-items.component';
 import { PaginationComponent } from './ui/pagination/pagination.component';
+import { ListItemComponent } from './ui/listItem/listItem.component';
 
 
 @NgModule({
   declarations: [
-    ProductItemsComponent,
+    ListItemComponent,
     PaginationComponent
   ],
   imports: [CommonModule],
   exports:[[
-    ProductItemsComponent,
+    ListItemComponent,
     PaginationComponent,
     CommonModule
   ]]

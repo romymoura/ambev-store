@@ -72,7 +72,7 @@ export class CreateUserComponent implements OnInit {
       next: (response: any) => {
         this.loading = false;
         if (response.success) {
-          this.successMessage = 'Cadastro realizado com sucesso! Redirecionando para a loja...';
+          this.successMessage = 'Cadastro realizado com sucesso! Redirecionando para o login...';
           setTimeout(() => {
             this.router.navigate(['/auth/login']);
           }, 3000);
