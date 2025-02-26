@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from '../../../environments/environment';
+import { UserListResponse } from '../models/user-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class UserService {
   }
 
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+  getUsers(): Observable<UserListResponse> {
+    return this.http.get<UserListResponse>(this.apiUrl);
   }
 
   getUser(id: string): Observable<User> {
