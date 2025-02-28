@@ -1,3 +1,9 @@
+[▶ Explicação repositório -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/1nlgKV1vTHnN1hbI2CW92BnDIjkwNfmih/view?usp=drive_link)
+
+[▶ Explicação projeto -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/1nBQLacv9gtMwM9LW0WmYhpCwo3fZXdS-/view?usp=drive_link)
+
+[▶ Apresentação portal -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/1cm1F3gsqkL9EyDSkypIekvyVV3zpCt1I/view?usp=drive_link)
+
 # Usuários da aplicação
   * lembrando que cada usuário tem suas respectivas areas, com isso o menu e telas são distintos para cada perfil
 <pre>
@@ -13,6 +19,7 @@
 	pass: @Customer123
 	profile: Customer
 </pre>
+
 
 * Página de login
 ![image](https://github.com/user-attachments/assets/ccf4f7a3-1d0f-4483-b47a-45e3a5b608bb)
