@@ -16,7 +16,7 @@ import { HeaderComponent } from './shared/header/header.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

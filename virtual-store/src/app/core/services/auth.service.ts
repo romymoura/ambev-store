@@ -16,18 +16,23 @@ export class AuthService {
   private apiUrl = `${environment.apiUrl}/Auth`;
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
+  token: string = '';
+  username: string = '';
+  userRole: string = '';
 
-  // public token: string;
-  // public username: string;
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadUserFromLocalStorage();
   }
 
-  private loadUserFromLocalStorage() {
-    const userData = localStorage.getItem('currentUser');
+  public loadUserFromLocalStorage() {
+    const userData = localStorage.getItem('currentUser') ?? null;
     if (userData) {
-      this.currentUserSubject.next(JSON.parse(userData));
+      const data = JSON.parse(userData)
+      this.currentUserSubject.next(data);
+      this.token = data.token;
+      this.username = data.name;
+      this.userRole = data.role;
     }
   }
 
@@ -47,6 +52,9 @@ export class AuthService {
             name: userData.name,
             role: userData.role
           });
+          this.token = userData.token;
+          this.username = userData.name;
+          this.userRole = userData.role;
         }
       })
     );
@@ -56,7 +64,9 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-    this.router.navigate(['auth/login']);
+    this.token = '';
+    this.username = '';
+    this.router.navigate(['/auth/login']);
   }
 
   recoverPassword(email: string): Observable<any> {
@@ -67,8 +77,19 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/reset-password`, { token, newPassword });
   }
 
+  isAuthorized(): boolean {
+    let authorized = this.token != null;
+    if (!authorized) {
+      const token = localStorage.getItem('token');
+      if (token != null && token !== '' && token !== undefined) {
+        this.token = token;
+        authorized = this.token != null;
+      }
+    }
+    return authorized;
+  }
+
   isLoggedIn(): boolean {
-    this.currentUserSubject.next(null);
     return !!localStorage.getItem('token');
   }
 
@@ -85,6 +106,7 @@ export class AuthService {
   getCurrentUserRole(): UserRole | null {
     const user = this.currentUserSubject.value;
     return user ? user.role : null;
+    //return this.userRole as UserRole;
   }
 
   hasRole(roles: UserRole[]): boolean {

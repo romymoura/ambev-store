@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Cart, CartItem } from '../models/cart.model';
+import { Cart, CartItem, CartCacheParent } from '../models/cart.model';
 import { Product } from '../models/product.model';
 import { environment } from '../../../environments/environment';
 
@@ -30,17 +30,25 @@ export class CartService {
     return this.selectedProductsSubject.value;
   }
 
-  addToCart(product: Product, quantity: number): void {
+  addToCart(product: Product): void {
     const currentItems = this.cartItemsSubject.value;
-    const existingItemIndex = currentItems.findIndex(item => item.productId === product.id);
+    const existingItemIndex = currentItems.findIndex((item: any) => item.id === product.id);
 
     if (existingItemIndex >= 0) {
-      currentItems[existingItemIndex].quantity += quantity;
+      currentItems[existingItemIndex].rating.count += product.rating.count;
+      currentItems[existingItemIndex].rating.rate = product.rating.rate;
     } else {
       currentItems.push({
-        productId: product.id,
-        quantity: quantity,
-        pay: false
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        description: product.description,
+        category: product.category,
+        image: product.image,
+        rating: {
+          rate: product.rating.rate,
+          count: product.rating.count
+        }
       });
     }
 
@@ -50,10 +58,10 @@ export class CartService {
 
   updateCartItem(productId: number, quantity: number): void {
     const currentItems = this.cartItemsSubject.value;
-    const itemIndex = currentItems.findIndex(item => item.productId === productId);
+    const itemIndex = currentItems.findIndex((item: any) => item.id === productId);
 
     if (itemIndex >= 0) {
-      currentItems[itemIndex].quantity = quantity;
+      currentItems[itemIndex].rating.count = quantity;
       this.cartItemsSubject.next([...currentItems]);
       localStorage.setItem('cart', JSON.stringify(currentItems));
     }
@@ -61,7 +69,7 @@ export class CartService {
 
   removeFromCart(productId: number): void {
     const currentItems = this.cartItemsSubject.value;
-    const updatedItems = currentItems.filter(item => item.productId !== productId);
+    const updatedItems = currentItems.filter((item: any) => item.id !== productId);
 
     this.cartItemsSubject.next(updatedItems);
     localStorage.setItem('cart', JSON.stringify(updatedItems));
@@ -76,19 +84,19 @@ export class CartService {
     return this.cartItemsSubject.value;
   }
 
-  submitCart(userId: string): Observable<any> {
-    const cart: Cart = {
-      id: 0,
-      userId: userId,
-      date: new Date().toISOString(),
-      products: this.cartItemsSubject.value.map(item => ({
-        productId: item.productId,
-        quantity: item.quantity,
-        pay: true
-      }))
+  submitCacheCart(shopping: CartItem[]): Observable<any> {
+    const cart: CartCacheParent = {
+      value: {
+        pay: false,
+        date: new Date().toISOString(),
+        shopping: shopping
+      }
     };
-
     return this.http.post(this.apiUrl, cart);
+  }
+
+  submitConfirmShoppingCart(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/shopping-payments`, {});
   }
 
   getUserCarts(userId: string): Observable<Cart[]> {
@@ -97,16 +105,5 @@ export class CartService {
 
   getAllCarts(): Observable<Cart[]> {
     return this.http.get<Cart[]>(this.apiUrl);
-  }
-
-  setItemPaid(productId: number, paid: boolean): void {
-    const currentItems = this.cartItemsSubject.value;
-    const itemIndex = currentItems.findIndex(item => item.productId === productId);
-
-    if (itemIndex >= 0) {
-      currentItems[itemIndex].pay = paid;
-      this.cartItemsSubject.next([...currentItems]);
-      localStorage.setItem('cart', JSON.stringify(currentItems));
-    }
   }
 }

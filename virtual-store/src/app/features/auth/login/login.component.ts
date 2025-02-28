@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
-import { UserRole } from '../../../shared/enums/user-role.enum';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UserRole } from 'src/app/shared/enums/user-role.enum';
+
+
 
 @Component({
   selector: 'app-login',
@@ -19,9 +21,10 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) {
+    this.authService.loadUserFromLocalStorage();
     this.loginForm = this.fb.group({
-      email: ['romy.moura23@gmail.com', [Validators.required, Validators.email]],
-      password: ['@A12345678a', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -42,6 +45,7 @@ export class LoginComponent {
         if (response.success && response.data.success) {
           // Redirect based on user role
           const userRole = this.authService.getCurrentUserRole();
+
           if (userRole === UserRole.Customer) {
             this.router.navigate(['/customer/product-list']);
           }
