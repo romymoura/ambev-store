@@ -9,15 +9,10 @@ import { UserRole } from '../enums/user-role.enum';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit  {
-  userRole: any;
-  userName: any;
+export class HeaderComponent {
   userRoleEnum = UserRole;
   constructor(public authService: AuthService, public router: Router) { }
-  ngOnInit() {
-    this.userRole = this.authService.getCurrentUserRole();
-    this.userName = this.authService.getUserName();
-  }
+
   public sigOut(): void {
     if ( this.authService.isLoggedIn() ) {
       this.authService.logout();
@@ -25,7 +20,7 @@ export class HeaderComponent implements OnInit  {
   }
 
   public verifyRole(roleArea: any): boolean {
-    let result = ((this.userRole == roleArea) && (this.authService.isLoggedIn()));
+    let result = ((this.authService.userRole == roleArea) && (this.authService.isLoggedIn()));
     return result;
   }
 }
