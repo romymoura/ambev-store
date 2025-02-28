@@ -1,0 +1,42 @@
+<app-pagination [totalItems]="items.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)" *ngIf="visibleTop" class="mb-2">
+</app-pagination>
+<div class="row p-2">
+  <div class="col" *ngFor="let column of columns; let i = index">
+    <span *ngIf="getType(i) != typesObject.HidenField">{{ column }}</span>
+  </div>
+</div>
+<div *ngFor="let item of paginatedItems; let i = index">
+  <div class="row p-2 d-flex justify-content-center align-items-center" [ngClass]="{'bg-light': i % 2 === 0}">
+    <div class="col" *ngFor="let column of columns; let i = index">
+      <div *ngIf="getType(i) == typesObject.Text">
+        {{ item[this.removeSpecialCharacters(column.toLowerCase())] }}
+      </div>
+      <div *ngIf="getType(i) == typesObject.Image">
+        <img src="{{item[this.removeSpecialCharacters(column.toLowerCase())]}}" class="img-item" />
+      </div>
+      <div *ngIf="getType(i) == typesObject.Rating">
+        <app-rating [rating]="item[this.removeSpecialCharacters(column.toLowerCase())]" [item]="item"></app-rating>
+      </div>
+      <div *ngIf="getType(i) == typesObject.Amount">
+        <input type="number" maxlength="3" style="max-width: 100px;" [value]="item.amount" (input)="updateValue(item, $event.target, 'amount')" />
+      </div>
+      <div *ngIf="getType(i) == typesObject.ControllsProfileCustomer">
+        <input type="button" value="Add Cart" class="btn btn-primary" data-mdb-ripple-init (click)="onClickAddProductInCart(item)" />
+      </div>
+      <!-- <div *ngIf="getType(i) == typesObject.Rating">
+        <app-rating [rating]="column"></app-rating>
+      </div>
+      <div *ngIf="getType(i) == typesObject.Rating">
+        <app-rating [rating]="column"></app-rating>
+      </div> -->
+    </div>
+  </div>
+</div>
+<div class="row p-2">
+  <div class="col" *ngFor="let column of columns; let i = index">
+    &nbsp;
+  </div>
+</div>
+<app-pagination [totalItems]="items.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)" *ngIf="visibleBotton" class="mt-4">

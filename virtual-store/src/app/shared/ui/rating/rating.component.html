@@ -1,0 +1,13 @@
+<div class="rating">
+  <ng-container *ngFor="let star of [].constructor(maxRating); let i = index">
+    <span
+      class="star"
+      [class.filled]="i < rating"
+      (click)="setRating(i + 1)"
+      (mouseover)="setRating(i + 1)"
+      (mouseleave)="setRating(rating)"
+    >
+      ★
+    </span>
+  </ng-container>
+</div>

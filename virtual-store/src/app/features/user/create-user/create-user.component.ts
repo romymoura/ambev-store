@@ -24,17 +24,16 @@ export class CreateUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let userFake = uuidv4();
     this.registerForm = this.formBuilder.group({
-      username: [`TesteUser_${userFake}`, [Validators.required]],
-      email: [`${userFake}@com.br`, [Validators.required, Validators.email]],
-      phone: ['11985654555', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
-      password: ['@Teste123', [
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
+      password: ['', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
       ]],
-      confirmPassword: ['@Teste123', [Validators.required]]
+      confirmPassword: ['', [Validators.required]]
     }, {
       validators: this.passwordMatchValidator
     });

@@ -1,12 +1,31 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
       <div class="my-5">
         <div class="card-body p-4">
           <h2 class="text-center mb-4">Produtos</h2>
-          <app-listItem [visibleBotton]="false" [items]="productList" [columns]="columns"></app-listItem>
+          <app-listItem
+            [visibleBotton]="false"
+            [items]="productList"
+            [columns]="columns"
+            [columnsOptConfig]="columnsOptConfig"
+            [itemsPerPage]="5"
+            (addProductCartEvent)="addProductCart($event)"
+            ></app-listItem>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="row">
+    <!-- Botões -->
+    <div class="d-grid gap-2 col-lg-12 col-md-12">
+      <button type="button" class="btn btn-primary" [disabled]="loading" (click)="onClickPurchase()">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"
+          aria-hidden="true"></span>
+          {{this.infoCart}}
+      </button>
     </div>
   </div>
 </div>

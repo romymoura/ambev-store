@@ -1,0 +1,24 @@
+p {
+  font-size: 12px; /* Reduz o tamanho da fonte */
+  transform: scale(0.8); /* Escala o componente para 80% do seu tamanho original */
+}
+
+.rating {
+  display: inline-block;
+  font-size: 30px;
+}
+
+.star {
+  cursor: pointer;
+  color: #dcdcdc; /* Cor da estrela vazia */
+  font-size: 20px; /* Reduz o tamanho da fonte */
+  transform: scale(0.8);
+}
+
+.star.filled {
+  color: gold; /* Cor da estrela preenchida */
+}
+
+.star:hover {
+  color: gold;
+}

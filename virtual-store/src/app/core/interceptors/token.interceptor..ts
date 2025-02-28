@@ -19,13 +19,14 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.authService.getToken();
     // Rotas onde o token deve ser adicionado
-    const allowedRoutes = [
-      `${environment.apiUrl}/Products`,
-      `${environment.apiUrl}/Carts`
-    ];
-    const isAllowedRoute = allowedRoutes.some(route => request.url.includes(route));
+    // const allowedRoutes = [
+    //   `${environment.apiUrl}/Products`,
+    //   `${environment.apiUrl}/Carts`
+    // ];
+    // const isAllowedRoute = allowedRoutes.some(route => request.url.includes(route));
 
-    if (token && isAllowedRoute) {
+    // if (token && isAllowedRoute) {
+      if (token) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`

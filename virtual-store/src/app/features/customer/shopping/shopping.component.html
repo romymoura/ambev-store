@@ -1,0 +1,46 @@
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="my-5">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4">Your Shopping Cart</h2>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="table-dark text-center">
+                <tr>
+                  <th>Product</th>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Amount</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cartItems">
+                  <td class="text-center">
+                    <img [src]="item.image" alt="Imagem do produto" class="img-thumbnail" width="50">
+                  </td>
+                  <td>{{ item.title }}</td>
+                  <td class="text-end">R$ {{ item.price | number: '1.2-2' }}</td>
+                  <td class="text-center">{{ item.rating.count }}</td>
+                  <td class="text-end">R$ {{ item.price * item.rating.count | number: '1.2-2' }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="fw-bold">
+                  <td colspan="4" class="text-end">Total:</td>
+                  <td class="text-end">R$ {{ getTotal() | number: '1.2-2' }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-secondary" (click)="goBack()">Voltar</button>
+            <button class="btn btn-success" (click)="confirmShopping()">🛒 Pay Shopping</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
