@@ -38,12 +38,16 @@
 * Página para validar o produtos com intenção de compra, neste momento o carrinho já está em cache.
 ![image](https://github.com/user-attachments/assets/9e6b66b5-972f-4a9c-8332-f5639538ab6a)
 
+* Atualização da página
+![image](https://github.com/user-attachments/assets/7b8b3ce4-339f-4bc5-8c90-e64b859973b0)
+
 * Cache da compra
 ![image](https://github.com/user-attachments/assets/94e780bf-21c8-4fd8-89a2-1119d746c18b)
 
 * Ao clicar no carrinho os dados serão salvos no Mongodb, o cache será apagado e o carrinho do cliente será eliminado, caso todo processamento backend ocorra com sucesso.
 ![image](https://github.com/user-attachments/assets/43a01db6-81e3-486a-974b-d29203955560)
 ![image](https://github.com/user-attachments/assets/73a05670-7fcf-4d9a-9740-ac1f7a776247)
+![image](https://github.com/user-attachments/assets/239889de-47d9-483f-b2c0-68f6888fc496)
 ![image](https://github.com/user-attachments/assets/d0d1e184-81ba-4127-b9bb-b679b7f11414)
 
 
