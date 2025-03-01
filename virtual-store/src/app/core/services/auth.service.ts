@@ -61,6 +61,7 @@ export class AuthService {
   }
 
   logout(): void {
+    localStorage.removeItem('cart');
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
