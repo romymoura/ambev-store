@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/services/cart.service';
 import { CartItem } from 'src/app/core/models/cart.model';
@@ -8,19 +8,27 @@ import { CartItem } from 'src/app/core/models/cart.model';
   templateUrl: './shopping.component.html',
   styleUrls: ['./shopping.component.scss']
 })
-export class ShoppingComponent implements OnInit {
+export class ShoppingComponent implements OnInit, AfterViewChecked {
   cartItems: CartItem[] = [];
+  cartItemsCopy: CartItem[] = [];
   loading = false;
-  errorMessage = "";
+  errorMessage: string | null = "";
+  btnPayIsOk = false;
 
-  constructor(private router: Router,  private cartService: CartService) {}
+  constructor(private router: Router, private cartService: CartService) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
   }
+  ngAfterViewChecked(): void {
+    this.btnPayIsOk = this.getTotalWithoutDiscount() > 0
+  }
 
-  getTotal(): number {
+  getTotalWithoutDiscount(): number {
     return this.cartItems.reduce((total, item) => total + item.price * item.rating.count, 0);
+  }
+  getTotalWithDiscount(): number {
+    return this.cartItems.reduce((total, item) => total + Number(item.subtotal), 0);
   }
 
   goBack(): void {
@@ -37,7 +45,7 @@ export class ShoppingComponent implements OnInit {
           this.cartService.clearCart();
           setTimeout(() => {
             this.loading = false;
-            this.router.navigate(['/customer/shopping-cart']);
+            this.router.navigate(['/customer/product-list']);
           }, 1000);
         } else {
           this.loading = false;
@@ -49,6 +57,9 @@ export class ShoppingComponent implements OnInit {
         this.errorMessage = error.error.message || 'An error occurred during add purchase';
       }
     });
+  }
 
+  economy(): number {
+    return (this.getTotalWithoutDiscount() - this.getTotalWithDiscount());
   }
 }

@@ -48,7 +48,17 @@ export class CartService {
         rating: {
           rate: product.rating.rate,
           count: product.rating.count
-        }
+        },
+        discount: ((product.rating.count > 4 && product.rating.count < 10) ? '0.10%' : (product.rating.count >= 10 && product.rating.count <= 20) ? '0.20%' : '0.00%'),
+        subtotal: ((product.price * product.rating.count) - ((product.rating.count > 4 && product.rating.count < 10) ?
+          ((product.price * product.rating.count) * 0.10 * 100 / 100) :
+          (product.rating.count >= 10 && product.rating.count <= 20) ?
+          ((product.price * product.rating.count) * 0.12 * 100 / 100) : 0)).toFixed(2),
+        total: ((product.price * product.rating.count) - ((product.rating.count > 4 && product.rating.count < 10) ?
+        ((product.price * product.rating.count) * 0.10 * 100 / 100) :
+        (product.rating.count >= 10 && product.rating.count <= 20) ?
+        ((product.price * product.rating.count) * 0.20 * 100 / 100) : 0)).toFixed(2),
+         valueWithoutDiscount: (product.price * product.rating.count).toFixed(2)
       });
     }
 

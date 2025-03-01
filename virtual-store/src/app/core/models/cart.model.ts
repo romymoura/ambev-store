@@ -9,6 +9,10 @@ export interface CartItem {
     rate: number;
     count: number;
   };
+  valueWithoutDiscount: string;
+  discount: string;
+  subtotal: string;
+  total: string;
 }
 
 export interface Cart {
