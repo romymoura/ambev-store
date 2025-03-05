@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  angular-app:
+    container_name: ambev_developer_evaluation_front
+    build: .
+    ports:
+      - "4300:4300"
+    restart: always
