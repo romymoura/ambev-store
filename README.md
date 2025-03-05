@@ -52,6 +52,15 @@ Refazer vídeos ficou  ruim
 ![image](https://github.com/user-attachments/assets/239889de-47d9-483f-b2c0-68f6888fc496)
 ![image](https://github.com/user-attachments/assets/d0d1e184-81ba-4127-b9bb-b679b7f11414)
 
+# Provision potal in docker with docker-compose
+
+ 	## Prerequisites
+ * Install docker on your machine, follow the documentation: https://docs.docker.com/desktop/setup/install/windows-install/
+ * Instale o docker-compose em sua maquina, segue a documentação: https://docs.docker.com/compose/install/
+ 
+ * Navegue até a pasta onde está o docker-compose e faça o seguinte comando: docker-compose up -d
+	* Obs: Images Front
+
 
 
 
